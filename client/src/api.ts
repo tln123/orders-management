@@ -52,7 +52,7 @@ export type FulfillmentChangeClient = {
 export const createApiClient = (): ApiClient => {
 	return {
 		getOrders: (searchValue, searchMethod, pageNumber, fulfillmentFilter, paymentFilter) => {
-			return axios.get(`http://localhost:3232/api/orders`, {
+			return axios.get(`https://damp-mountain-89279.herokuapp.com/api/orders`, {
 				params: {
 					searchValue: searchValue,
 					searchMethod: searchMethod,
@@ -65,12 +65,12 @@ export const createApiClient = (): ApiClient => {
 			});
 		},
 		getItem: (itemId: string) => {
-			return axios.get(`http://localhost:3232/api/items/${itemId}`).then((res) => res.data).catch((error) => {
+			return axios.get(`https://damp-mountain-89279.herokuapp.com/api/items/${itemId}`).then((res) => res.data).catch((error) => {
 				console.log(error);
 			});
 		},
 		login: (username: string, password: string) => {
-			return axios.post('http://localhost:3232/api/employees/login', { username: username, password: password }).then((res) => res.data).catch((error) => {
+			return axios.post('https://damp-mountain-89279.herokuapp.com/api/employees/login', { username: username, password: password }).then((res) => res.data).catch((error) => {
 				console.log(error)
 			});
 		}
@@ -82,7 +82,7 @@ export const createApiClient = (): ApiClient => {
 export const createFulfillmentClient = (): FulfillmentChangeClient => {
 	return {
 		changeFulfillmentStatus: (orderId: number, newFulfillmentStatus: string, employeeUN: string) => {
-			return axios.post(`http://localhost:3232/api/${orderId}`, { fulfillmentStatus: newFulfillmentStatus, employeeUN: employeeUN }).then((res) => res.data).catch((error) => {
+			return axios.post(`https://damp-mountain-89279.herokuapp.com/api/${orderId}`, { fulfillmentStatus: newFulfillmentStatus, employeeUN: employeeUN }).then((res) => res.data).catch((error) => {
 				console.log(error);
 			});
 		}

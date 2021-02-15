@@ -12,7 +12,7 @@ const login = require('./controllers/login');
 
 const app = express();
 
-const PORT = 3232;
+
 const PAGE_SIZE = 20;
 
 app.use(cors());
@@ -62,5 +62,7 @@ app.get('/api/items/:itemId', (req, res) => {getitem.handleGetItem(req, res, Pro
 app.post('/api/:orderId', (req, res) => {postorder.handlePostOrder(req, res, Order, Employee);});
 app.post('/api/employees/login', (req, res) => {login.handleLogin(req, res, bcrypt, Employee);});
 
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT);
-console.log('Listening on port', PORT);
+console.log('Listening on port ' + PORT);
