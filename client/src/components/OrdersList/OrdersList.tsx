@@ -33,7 +33,7 @@ export class OrdersList extends React.PureComponent<OrdersListProps, OrdersListS
         unfulfilledCount: (this.state.unfulfilledCount - 1),
         employeeFullfillmentCount: (this.state.employeeFullfillmentCount + 1),
       });
-    } else if (oldFulfillmentStatus === `fulfilled-by-${this.props.employee.id}`) {
+    } else if (oldFulfillmentStatus === `fulfilled-by-${this.props.employee.username}`) {
       this.setState({
         unfulfilledCount: (this.state.unfulfilledCount + 1),
         employeeFullfillmentCount: (this.state.employeeFullfillmentCount - 1),
@@ -67,7 +67,7 @@ export class OrdersList extends React.PureComponent<OrdersListProps, OrdersListS
                   key={i}
                   order={order}
                   onFulfillmentChange={this.onFulfillmentChange}
-                  employeeID={this.props.employee.id}
+                  employeeUN={this.props.employee.username}
                 />
               );
             })

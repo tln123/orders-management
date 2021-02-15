@@ -15,7 +15,7 @@ export type ModalProps = {
     closeModal: (event: React.MouseEvent<HTMLButtonElement>) => void,
     order: Order;
     onFulfillmentChange: (newFulfillmentStatus: string, oldFulfillmentStatus: string) => void;
-    employeeId: string;
+    employeeUN: string;
 }
 
 const orderApi = createFulfillmentClient();
@@ -33,10 +33,10 @@ export class OrderModal extends React.PureComponent<ModalProps, ModalState> {
 
     onFulfilmentChange = () => {
         const oldFulfillmentStatus = this.state.fulfillmentStatus;
-        const newFulfillmentStatus = oldFulfillmentStatus === 'not-fulfilled' ? `fulfilled-by-${this.props.employeeId}` : 'not-fulfilled';
+        const newFulfillmentStatus = oldFulfillmentStatus === 'not-fulfilled' ? `fulfilled-by-${this.props.employeeUN}` : 'not-fulfilled';
         const assetSrc = (newFulfillmentStatus === 'not-fulfilled') ? 'not-fulfilled' : 'fulfilled'; 
 
-        orderApi.changeFulfillmentStatus(this.props.order.id, newFulfillmentStatus).then((res) => {
+        orderApi.changeFulfillmentStatus(this.props.order.id, newFulfillmentStatus, this.props.employeeUN).then((res) => {
             if (res === 'success') {
                 this.props.order.fulfillmentStatus = newFulfillmentStatus;
                 this.setState({

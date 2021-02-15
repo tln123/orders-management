@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 export type Employee = {
-	id: string;
+	username: string;
 	name: string;
 	fulfilledCount: number;
 }
@@ -41,11 +41,11 @@ export type ApiClient = {
 	getOrders: (searchValue: string, searchMethod: string, pageNumber: number, fulfillmentFilter: string, paymentFilter: string)
 		=> Promise<{ length: number, unfulfilledCount: number, ordersToReturn: Order[] }>;
 	getItem: (itemId: string) => Promise<Item>;
-	login: (id: string, password: string) => Promise<any>;
+	login: (username: string, password: string) => Promise<any>;
 }
 
 export type FulfillmentChangeClient = {
-	changeFulfillmentStatus: (orderId: number, newFulfillmentStatus: string) => Promise<string>;
+	changeFulfillmentStatus: (orderId: number, newFulfillmentStatus: string, employeeUN: string) => Promise<string>;
 }
 
 
@@ -69,8 +69,8 @@ export const createApiClient = (): ApiClient => {
 				console.log(error);
 			});
 		},
-		login: (id: string, password: string) => {
-			return axios.post('http://localhost:3232/api/employees/login', { id: id, password: password }).then((res) => res.data).catch((error) => {
+		login: (username: string, password: string) => {
+			return axios.post('http://localhost:3232/api/employees/login', { username: username, password: password }).then((res) => res.data).catch((error) => {
 				console.log(error)
 			});
 		}
@@ -81,8 +81,8 @@ export const createApiClient = (): ApiClient => {
 //used by OrderModal
 export const createFulfillmentClient = (): FulfillmentChangeClient => {
 	return {
-		changeFulfillmentStatus: (orderId: number, newFulfillmentStatus: string) => {
-			return axios.post(`http://localhost:3232/api/${orderId}`, { fulfillmentStatus: newFulfillmentStatus }).then((res) => res.data).catch((error) => {
+		changeFulfillmentStatus: (orderId: number, newFulfillmentStatus: string, employeeUN: string) => {
+			return axios.post(`http://localhost:3232/api/${orderId}`, { fulfillmentStatus: newFulfillmentStatus, employeeUN: employeeUN }).then((res) => res.data).catch((error) => {
 				console.log(error);
 			});
 		}

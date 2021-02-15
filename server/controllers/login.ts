@@ -1,15 +1,22 @@
-export const handleLogin = (req: any, res: any, employees: any, bcrypt: any) => {
+export const handleLogin = (req: any, res: any, bcrypt: any, Employee: any) => {
 
-    const { id, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!employees[id]){
-        res.json('wrong-id')
-    }else if (!bcrypt.compareSync(password, employees[id].password)){
-        res.json('wrong-password');
-    } else {
-        const employee = { id: id, name: employees[id].name, fulfilledCount: employees[id].fulfilledCount };
-        res.status(200).json(employee);
-    }
+    Employee.findOne({username: username}, (err: any, employee: any) =>{
+        if (err){
+            console.log(err);
+            res.json("error retreiving employee from DB")
+        }else{
+            if (employee === null){
+                res.json('wrong-username');
+            }else if (!bcrypt.compareSync(password, employee.password)){
+                res.json('wrong-password');
+            }else{
+                const infoToSend = { username: username, name: employee.name, fulfilledCount: employee.fulfilledCount };
+                res.status(200).json(infoToSend);
+            }
+        }
+    });
 }
 
 

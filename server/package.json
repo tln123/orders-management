@@ -19,7 +19,7 @@
     "chance": "^1.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "googleapis": "^39.2.0",
+    "mongoose": "^5.11.15",
     "ts-node": "^8.3.0",
     "ts-node-dev": "^1.0.0-pre.41",
     "typescript": "^3.5.3"

@@ -9,7 +9,7 @@ export type OrderState = {
 export type OrderProps = {
   order: Order;
   onFulfillmentChange: (newFulfillmentStatus: string, oldFulfillmentStatus: string) => void;
-  employeeID: string;
+  employeeUN: string;
 }
 
 export class OrderComponent extends React.PureComponent<OrderProps, OrderState> {
@@ -40,7 +40,7 @@ export class OrderComponent extends React.PureComponent<OrderProps, OrderState> 
       <div>
         {
           showModal ?
-            <OrderModal order={this.props.order} closeModal={this.closeModal} onFulfillmentChange={this.props.onFulfillmentChange} employeeId={this.props.employeeID} />
+            <OrderModal order={this.props.order} closeModal={this.closeModal} onFulfillmentChange={this.props.onFulfillmentChange} employeeUN={this.props.employeeUN} />
             : null
         }
         <div className='orderCard' onClick={this.openModal}>

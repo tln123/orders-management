@@ -1,9 +1,7 @@
 import express from 'express';
 import bodyParser = require('body-parser');
 const cors = require('cors');
-const { products } = require('./products.json');
-const { employees } = require('./employeesDB.json');
-const fs = require('fs');
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
 //controllers
@@ -13,7 +11,6 @@ const postorder = require('./controllers/postorder');
 const login = require('./controllers/login');
 
 const app = express();
-const allOrders: any[] = require('./orders.json');
 
 const PORT = 3232;
 const PAGE_SIZE = 20;
@@ -27,10 +24,43 @@ app.use((_, res, next) => {
 	next();
 });
 
-app.get('/api/orders', (req, res) => {getorders.handleGetOrders(allOrders, products, PAGE_SIZE, req, res)});
-app.get('/api/items/:itemId', (req, res) => {getitem.handleGetItem(products, req, res);});
-app.post('/api/:orderId', (req, res) => {postorder.handlePostOrder(allOrders, req, res, fs);});
-app.post('/api/employees/login', (req, res) => {login.handleLogin(req, res, employees, bcrypt);});
+mongoose.connect("mongodb://localhost:27017/orders-management", {useNewUrlParser: true, useUnifiedTopology: true});
+
+const productsSchema = {
+	id: String,
+	name: String,
+	image: String,
+	price: Number
+}
+
+const employeeSchema = {
+	name: String,
+	username: String,
+	password: String,
+	fulfilledCount: Number
+}
+
+const orderSchema = {
+	id: Number, 
+	currency: String,
+	createdDate: String,
+	ItemQuantity: Number,
+	items: [{id: String, quantity: Number}],
+	customer: {name: String, id: String},
+	fulfillmentStatus: String,
+	billingInfo: {status: String},
+	price: {total: Number, formattedTotalPrice: String}
+}
+
+const Product = mongoose.model("Product", productsSchema);
+const Employee = mongoose.model("Employee", employeeSchema);
+const Order = mongoose.model("Order", orderSchema);
+
+
+app.get('/api/orders', (req, res) => {getorders.handleGetOrders(PAGE_SIZE, req, res, Order, Product)});
+app.get('/api/items/:itemId', (req, res) => {getitem.handleGetItem(req, res, Product);});
+app.post('/api/:orderId', (req, res) => {postorder.handlePostOrder(req, res, Order, Employee);});
+app.post('/api/employees/login', (req, res) => {login.handleLogin(req, res, bcrypt, Employee);});
 
 app.listen(PORT);
 console.log('Listening on port', PORT);

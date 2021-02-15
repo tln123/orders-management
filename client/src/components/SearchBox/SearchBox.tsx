@@ -36,7 +36,7 @@ const SearchBox = (
                     <h4>Search for: </h4>
                     <DropDownButton
                         onChange={onSearchMethodChange}
-                        buttons={['Name or Order ID', 'Item Name']}
+                        buttons={['Name', 'Order ID', 'Item Name']}
                         handlerString={searchMethod}
                     />
                 </div>

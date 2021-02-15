@@ -16,7 +16,7 @@ export type AppState = {
 	paymentFilter: string;
 	route: string;
 	employee: {
-		id: string,
+		username: string,
 		name: string,
 		fulfilledCount: number
 	};
@@ -29,13 +29,13 @@ export class App extends React.PureComponent<{}, AppState> {
 
 	state: AppState = {
 		searchValue: '',
-		searchMethod: 'Name or Order ID',
+		searchMethod: 'Name',
 		pageNumber: 1,
 		fulfillmentFilter: 'No Filter',
 		paymentFilter: 'No Filter',
 		route: 'login',
 		employee: {
-			id: '',
+			username: '',
 			name: '',
 			fulfilledCount: 0,
 		}
@@ -65,16 +65,16 @@ export class App extends React.PureComponent<{}, AppState> {
 
 
 
-	onLogin = (id: string, password: string) => {
-		api.login(id, password).then((res) => {
-			if (res === 'wrong-id'){
+	onLogin = (username: string, password: string) => {
+		api.login(username, password).then((res) => {
+			if (res === 'wrong-username'){
 				alert('Employee Does Not Exist')
 			}else if (res === 'wrong-password'){
 				alert('Wrong Credentials')
 			}else{
 				this.setState({
 					employee: {
-						id: res.id,
+						username: res.username,
 						name: res.name,
 						fulfilledCount: res.fulfilledCount
 					},
@@ -87,7 +87,7 @@ export class App extends React.PureComponent<{}, AppState> {
 	onSignOut = () => {
 		this.setState({
 			employee: {
-				id: '',
+				username: '',
 				name: '',
 				fulfilledCount: 0,
 			},
@@ -152,7 +152,7 @@ export class App extends React.PureComponent<{}, AppState> {
 	OnTester = () => {
 		this.setState({
 			employee: {
-				id: 'tester',
+				username: 'tester',
 				name: 'Tester',
 				fulfilledCount: 10,
 			},
