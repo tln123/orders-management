@@ -24,7 +24,7 @@ app.use((_, res, next) => {
 	next();
 });
 
-mongoose.connect("mongodb://localhost:27017/orders-management", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://tester:test1994@cluster0.sm7if.mongodb.net/orders-management?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 
 const productsSchema = {
 	id: String,
