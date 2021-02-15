@@ -1,9 +1,0 @@
-{
-    "employees": {
-      "tester": {
-        "name": "Tester",
-        "password": "$2a$10$cOocZRJz.fAcs8civ0rMw.Uq.AGd3p1/3COFkJ9WaIdQcnlS7VDXu",
-        "fulfilledCount": 10
-    }
-  }
-}
