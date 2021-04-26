@@ -1,5 +1,5 @@
 # Orders Management System Project
-An upgrade to an assignment I received, The project is an orders-management system built under the assumption that the app designed for the fulfillment workers and their manager got access to the back-end.  
+The project is an orders-management system built under the assumption that the app designed for the fulfillment workers and their manager got access to the back-end.  
 
 The project was built with React, Typescript, Node.js, Scss, and MongoDB.
 The Front-end deployed to 'GitHub-Pages', the Backend was deployed to 'Heroku', and the DB was deployed to MongoDB Atlas.
